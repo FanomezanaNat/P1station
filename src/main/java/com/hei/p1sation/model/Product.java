@@ -1,4 +1,4 @@
-package com.hei.p1sation.repository.model;
+package com.hei.p1sation.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-    private String id;
+    private int id;
     private FuelStation fuelStation;
     private ProductTemplate product;
 }

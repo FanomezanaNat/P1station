@@ -1,5 +1,6 @@
-package com.hei.p1sation.repository.model;
+package com.hei.p1sation.model;
 
+import com.hei.p1sation.model.enums.Fuel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,5 @@ import lombok.NoArgsConstructor;
 public class ProductTemplate {
     private int id;
     private Fuel name;
-    private float unitPrice;
-    private float evaporationRate;
+    private int unitPrice;
 }

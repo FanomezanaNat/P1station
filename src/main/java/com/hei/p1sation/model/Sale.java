@@ -1,17 +1,18 @@
-package com.hei.p1sation.repository.model;
+package com.hei.p1sation.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transaction {
-    private String id;
+public class Sale extends Movement {
     private Instant date;
-    private Fuel product;
-    private TransactionType type;
-    private float quantity;
+
 }
+
