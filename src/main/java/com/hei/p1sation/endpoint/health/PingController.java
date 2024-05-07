@@ -1,4 +1,4 @@
-package com.nathan.p1sation.endpoint.health;
+package com.hei.p1sation.endpoint.health;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.nathan.p1sation.repository.model;
+package com.hei.p1sation.repository.model;
 
 public enum TransactionType {
     income,

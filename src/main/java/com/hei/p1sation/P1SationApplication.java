@@ -1,4 +1,4 @@
-package com.nathan.p1sation;
+package com.hei.p1sation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
