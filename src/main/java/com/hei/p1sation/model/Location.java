@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Location {
-    private int id;
+    private String id;
     private String latitude;
     private String longitude;
 }

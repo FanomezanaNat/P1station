@@ -1,6 +1,5 @@
 package com.hei.p1sation.repository;
 
-import com.hei.p1sation.model.FuelStation;
 
 import java.util.List;
 

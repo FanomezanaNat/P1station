@@ -9,7 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductTemplate {
-    private int id;
+    private String id;
     private Fuel name;
     private int unitPrice;
+
+    public ProductTemplate(String id) {
+        this.id = id;
+    }
 }
