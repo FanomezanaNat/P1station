@@ -1,5 +1,5 @@
 CREATE TABLE "product"(
-    id SERIAL PRIMARY KEY,
+    id VARCHAR PRIMARY KEY DEFAULT uuid_generate_v4(),
     fuel_station_id VARCHAR REFERENCES "fuel_station"(id),
     product_template_id VARCHAR REFERENCES "product_template"(id)
-)
+);
