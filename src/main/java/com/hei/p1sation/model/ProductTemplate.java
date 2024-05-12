@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class ProductTemplate {
     private String id;
     private Fuel name;
-    private int unitPrice;
+    private float unitPrice;
 
     public ProductTemplate(String id) {
         this.id = id;
