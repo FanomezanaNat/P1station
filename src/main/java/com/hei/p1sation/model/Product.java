@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Product {
     private String id;
+    private float evaporationRate;
     private FuelStation fuelStation;
     private ProductTemplate product;
 
@@ -16,8 +17,9 @@ public class Product {
         this.id = id;
     }
 
-    public Product(FuelStation fuelStation, ProductTemplate product) {
+    public Product(FuelStation fuelStation,float evaporationRate, ProductTemplate product) {
         this.fuelStation = fuelStation;
         this.product = product;
+        this.evaporationRate=evaporationRate;
     }
 }
