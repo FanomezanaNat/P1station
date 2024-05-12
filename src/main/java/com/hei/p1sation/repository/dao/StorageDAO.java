@@ -23,7 +23,7 @@ public class StorageDAO {
                 """;
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setObject(1, toSaved.getFuelStation().getId());
-            preparedStatement.setObject(2, toSaved.getProduct().getId());
+            preparedStatement.setObject(2, toSaved.getProduct());
             preparedStatement.setFloat(3, toSaved.getValue());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

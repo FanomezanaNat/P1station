@@ -27,7 +27,7 @@ public class ProductTemplateDAO implements CrudRepository<ProductTemplate> {
                 """;
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setObject(1, toSave.getName());
-            preparedStatement.setInt(2, toSave.getUnitPrice());
+            preparedStatement.setFloat(2, toSave.getUnitPrice());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
