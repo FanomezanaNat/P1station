@@ -3,12 +3,13 @@ package com.hei.p1sation.service;
 import com.hei.p1sation.model.FuelStation;
 import com.hei.p1sation.model.OperationProduct;
 import com.hei.p1sation.model.Product;
-import com.hei.p1sation.model.Storage;
 import com.hei.p1sation.model.enums.Fuel;
 import com.hei.p1sation.repository.dao.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 
 import static com.hei.p1sation.model.enums.TransactionType.sale;
@@ -20,7 +21,7 @@ public class FuelStationService {
     private FuelStationDAO fuelStationDAO;
     private OperationProductDAO operationProductDAO;
     private ProductDAO productDAO;
-    private StorageDAO storageDAO;
+    private QuantityDAO quantityDAO;
 
     public List<FuelStation> findAll() {
         return fuelStationDAO.findAll();
@@ -46,15 +47,8 @@ public class FuelStationService {
                 product,
                 quantity
         );
-        Storage storage = new Storage(
-                quantity,
-                station,
-                productTemplateName
 
-
-        );
         operationProductDAO.save(operationProduct);
-        storageDAO.save(storage);
 
 
     }
@@ -80,6 +74,23 @@ public class FuelStationService {
         );
         operationProductDAO.save(operationProduct);
 
+    }
+
+    public float getStorageBetweenDate(String id, Instant startDate, Instant endDate) {
+        Product product = productDAO.getById(id);
+        if (product == null) {
+            throw new IllegalArgumentException("Product with ID: " + id + " not found.");
+        }
+
+        if (endDate.isBefore(startDate)) {
+            throw new IllegalArgumentException("End date must be after start date.");
+        }
+
+        float evaporationRate = product.getEvaporationRate();
+        long daysBetween = Duration.between(startDate, endDate).toDays();
+        float potentialEvaporationLoss = evaporationRate * daysBetween;
+        float storage = quantityDAO.getTotalSupplyByFuelBetweenDate(id, startDate, endDate) - quantityDAO.getTotalSaleByFuelBetweenDate(id, startDate, endDate);
+        return storage - potentialEvaporationLoss;
 
     }
 }
