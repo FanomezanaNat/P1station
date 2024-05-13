@@ -4,55 +4,23 @@ import com.hei.p1sation.model.enums.Fuel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.Instant;
 
 @Repository
 @AllArgsConstructor
 public class QuantityDAO {
     private Connection connection;
 
-    public float getTotalSupply(){
-        String sql= """
-                SELECT get_total_supply() AS total_supply
-                """;
-        try(PreparedStatement preparedStatement= connection.prepareStatement(sql)) {
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getFloat("total_supply");
-                } else {
-                    return 0;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error while fetching total supply", e);
-        }
-    }
-    public float getTotalSale(){
-        String sql= """
-                SELECT get_total_sale() AS total_sale
-                """;
-        try(PreparedStatement preparedStatement= connection.prepareStatement(sql)) {
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getFloat("total_sale");
-                } else {
-                    return 0;
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Error while fetching total sale", e);
-        }
-    }
-    public float getTotalSupplyByFuel(Fuel name) {
+    public float getTotalSupplyByFuelBetweenDate(String id, Instant startDate,Instant endDate) {
         String sql = """
-                SELECT get_total_supply(?)
+                SELECT get_total_supply_by_id_product_between_date(?,?,?);
                 """;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, name.toString());
+            preparedStatement.setString(1, id);
+            preparedStatement.setTimestamp(2, Timestamp.from(startDate));
+            preparedStatement.setTimestamp(3, Timestamp.from(endDate));
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -65,13 +33,15 @@ public class QuantityDAO {
             throw new RuntimeException("Error executing query: " + e.getMessage(), e);
         }
     }
-    public float getTotalSaleByFuel(Fuel name) {
+    public float getTotalSaleByFuelBetweenDate(String id,Instant startDate,Instant endDate) {
         String sql = """
-                SELECT get_total_sale(?)
+                SELECT get_total_sale_by_id_product_between_date(?,?,?);
                 """;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, name.toString());
+            preparedStatement.setString(1, id);
+            preparedStatement.setTimestamp(2, Timestamp.from(startDate));
+            preparedStatement.setTimestamp(3, Timestamp.from(endDate));
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -84,7 +54,5 @@ public class QuantityDAO {
             throw new RuntimeException("Error executing query: " + e.getMessage(), e);
         }
     }
-    public float currentStockFuelWithoutEvaporationRate(Fuel name){
-        return getTotalSupplyByFuel(name) - getTotalSaleByFuel(name);
-    }
+
 }
