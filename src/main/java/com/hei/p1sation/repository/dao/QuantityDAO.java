@@ -1,6 +1,5 @@
 package com.hei.p1sation.repository.dao;
 
-import com.hei.p1sation.model.enums.Fuel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
